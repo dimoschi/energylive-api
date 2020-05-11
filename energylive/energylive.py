@@ -1,12 +1,12 @@
+import datetime
 import logging
 from functools import wraps
 from socket import gaierror
 from time import sleep
 
-import pandas as pd
 import requests
 
-from .exceptions import UnknownResponseType, UnknownDatetime
+from .exceptions import UnknownDatetime, UnknownResponseType
 
 __title__ = "energylive-py"
 __version__ = "0.1"
@@ -98,20 +98,20 @@ class EnergyLiveClient:
             end {pd.Timestamp/str} -- Request parameters end date
 
         Raises:
-            UnknownDatetime: Exception raised when Datetime is not pandas/str
+            UnknownDatetime: Exception raised when Datetime is not datetime/str
 
         Returns:
             [requests.Response] -- Requests response
         """
 
-        if isinstance(start, pd.Timestamp):
+        if isinstance(start, datetime.datetime):
             start_str = self._datetime_to_str(start)
         elif isinstance(start, str):
             start_str = start
         else:
             raise UnknownDatetime
 
-        if isinstance(end, pd.Timestamp):
+        if isinstance(end, datetime.datetime):
             end_str = self._datetime_to_str(end)
         elif isinstance(start, str):
             end_str = end
@@ -139,7 +139,7 @@ class EnergyLiveClient:
         """Convert a datetime object to a string in CET/CEST
 
         Arguments:
-            dtm {pd.Timestamp} -- Date as Pandas Timestamp
+            dtm {pd.Timestamp} -- Date as datetime.datetime
 
         Returns:
             [str] -- Date as string
