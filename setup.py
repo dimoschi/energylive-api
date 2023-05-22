@@ -44,7 +44,7 @@ setup(
         'energylive-py': ['LICENSE', 'README.md'],
     },
     install_requires=[
-        "requests==2.23.0",
+        "requests==2.31.0",
     ],
     include_package_data=True,
     zip_safe=False,
